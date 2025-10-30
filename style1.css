@@ -1,0 +1,75 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.calculator {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 320px;
+}
+
+#display {
+    width: 100%;
+    height: 70px;
+    border: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #222;
+    color: #fff;
+    text-align: right;
+    padding: 0 20px;
+    font-size: 2.5em;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+}
+
+button {
+    height: 70px;
+    border: none;
+    background-color: #f9f9f9;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+}
+
+.operator {
+    background-color: #4eaff0;
+    color: white;
+}
+
+.operator:hover {
+    background-color: #ec1f82;
+}
+
+#equals {
+    grid-row: span 2; /* Makes the equals button taller */
+    background-color: #995cb8;
+    color: white;
+    border-bottom-right-radius: 10px;
+}
+
+#equals:hover {
+    background-color: #924cae;
+}
+
+#zero {
+    grid-column: span 2; /* Makes the zero button wider */
+    border-bottom-left-radius: 10px;
+}
