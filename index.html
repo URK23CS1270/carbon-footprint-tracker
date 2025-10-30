@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Carbon Footprint Tracker</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<div>
+<h1>Carbon Footprint Tracker</h1>
+<div class="small">Track daily emissions, take challenges, earn rewards — private & offline-first</div>
+</div>
+<div style="margin-left:auto;text-align:right">
+<div class="small">Profile: <span id="profileName">Guest</span></div>
+<div class="small">Points: <b id="points">0</b></div>
+</div>
+</header>
+
+
+<div class="grid">
+<section class="card">
+<h2 style="margin:0 0 8px 0">Dashboard</h2>
+<div class="small">Quick add activity — built-in emission factors, editable per user</div>
+
+
+<div class="activity-inputs">
+<div>
+<label>Activity</label>
+<select id="activityType">
+<option value="car_km">Car (km)</option>
+<option value="public_km">Public transport (km)</option>
+<option value="electric_kwh">Electricity (kWh)</option>
+<option value="flight_hr">Flight (hours)</option>
+<option value="meat_meal">Meat meal (per meal)</option>
+<option value="waste_kg">Waste (kg)</option>
+<option value="bike_km">Bike/Walk (km)</option>
+</select>
+</div>
+<div>
+<label>Quantity</label>
+<input id="activityQty" type="number" value="1" min="0" step="0.1" />
+</div>
+<div>
+<label>Date</label>
+<input id="activityDate" type="date" />
+</div>
+<div>
+<button id="addActivity">Add</button>
+</div>
+</div>
+
+
+<div class="chart-section">
+<canvas id="chart" height="120"></canvas>
+<div class="summary-card">
+<div class="muted">Today's estimated CO₂</div>
+<div id="todayCO2">0 kg</div>
+<div class="muted">Household adjusted</div>
+</div>
+</div>
+
+
+<h3>Activity log</h3>
+<div class="list" id="log"></div>
+<div class="actions">
+<button id="exportCsv" class="secondary">Export CSV</button>
+<button id="exportJson" class="secondary">Export JSON</button>
+<input id="importFile" type="file" accept=".json,.csv" />
+</div>
+
+
+<h3>Challenges & Rewards</h3>
+<div class="small">Complete challenges to earn points and badges.</div>
+<div class="challenges">
+<div class="challenge">
+<b>Meat-free day</b>
+<div class="muted">Do not log any 'meat_meal' for 1 day</div>
+<button class="challengeBtn" data-challenge="meatfree">Join — 20 pts</button>
+</div>
+</html>
