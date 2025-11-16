@@ -1,84 +1,137 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Carbon Footprint Tracker</title>
-<link rel="stylesheet" href="style1.css">
-<script src="script.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Carbon Footprint Tracker</title>
+
+  <!-- Normalize + Chart.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="wrap">
-<header class="top">
-<div>
-<h1>Carbon Footprint Tracker</h1>
-<div class="small">Track daily emissions, take challenges, earn rewards — private & offline-first</div>
-</div>
-<div style="margin-left:auto;text-align:right">
-<div class="small">Profile: <span id="profileName">Guest</span></div>
-<div class="small">Points: <b id="points">0</b></div>
-</div>
-</header>
+  <div class="wrap">
+    <header class="top">
+      <div>
+        <h1>Carbon Footprint Tracker</h1>
+        <div class="small">Track daily emissions, take challenges, earn rewards — private & offline-first</div>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <div class="small">Profile: <span id="profileName">Guest</span></div>
+        <div class="small">Points: <b id="points">0</b></div>
+      </div>
+    </header>
 
+    <div class="grid">
+      <section class="card">
+        <h2>Dashboard</h2>
+        <div class="small">Quick add activity — built-in emission factors, editable per user</div>
 
-<div class="grid">
-<section class="card">
-<h2 style="margin:0 0 8px 0">Dashboard</h2>
-<div class="small">Quick add activity — built-in emission factors, editable per user</div>
+        <div class="activity-inputs">
+          <div>
+            <label>Activity</label>
+            <select id="activityType">
+              <option value="car_km">Car (km)</option>
+              <option value="public_km">Public transport (km)</option>
+              <option value="electric_kwh">Electricity (kWh)</option>
+              <option value="flight_hr">Flight (hours)</option>
+              <option value="meat_meal">Meat meal (per meal)</option>
+              <option value="waste_kg">Waste (kg)</option>
+              <option value="bike_km">Bike/Walk (km)</option>
+            </select>
+          </div>
 
+          <div>
+            <label>Quantity</label>
+            <input id="activityQty" type="number" value="1" min="0" step="0.1" />
+          </div>
 
-<div class="activity-inputs">
-<div>
-<label>Activity</label>
-<select id="activityType">
-<option value="car_km">Car (km)</option>
-<option value="public_km">Public transport (km)</option>
-<option value="electric_kwh">Electricity (kWh)</option>
-<option value="flight_hr">Flight (hours)</option>
-<option value="meat_meal">Meat meal (per meal)</option>
-<option value="waste_kg">Waste (kg)</option>
-<option value="bike_km">Bike/Walk (km)</option>
-</select>
-</div>
-<div>
-<label>Quantity</label>
-<input id="activityQty" type="number" value="1" min="0" step="0.1" />
-</div>
-<div>
-<label>Date</label>
-<input id="activityDate" type="date" />
-</div>
-<div>
-<button id="addActivity">Add</button>
-</div>
-</div>
+          <div>
+            <label>Date</label>
+            <input id="activityDate" type="date" />
+          </div>
 
+          <div><button id="addActivity">Add</button></div>
+        </div>
 
-<div class="chart-section">
-<canvas id="chart" height="120"></canvas>
-<div class="summary-card">
-<div class="muted">Today's estimated CO₂</div>
-<div id="todayCO2">0 kg</div>
-<div class="muted">Household adjusted</div>
-</div>
-</div>
+        <div class="chart-section">
+          <canvas id="chart" height="120"></canvas>
+          <div class="summary-card">
+            <div class="muted">Today's estimated CO₂</div>
+            <div id="todayCO2">0 kg</div>
+            <div class="muted">Household adjusted</div>
+          </div>
+        </div>
 
+        <h3>Activity log</h3>
+        <div class="list" id="log"></div>
 
-<h3>Activity log</h3>
-<div class="list" id="log"></div>
-<div class="actions">
-<button id="exportCsv" class="secondary">Export CSV</button>
-<button id="exportJson" class="secondary">Export JSON</button>
-<input id="importFile" type="file" accept=".json,.csv" />
-</div>
+        <div class="actions">
+          <button id="exportCsv" class="secondary">Export CSV</button>
+          <button id="exportJson" class="secondary">Export JSON</button>
+          <input id="importFile" type="file" accept=".json,.csv" />
+        </div>
 
+        <h3>Challenges & Rewards</h3>
+        <div class="small">Complete challenges to earn points and badges.</div>
+        <div class="challenges">
+          <div class="challenge">
+            <b>Meat-free day</b>
+            <div class="muted">Do not log any 'meat_meal' for 1 day</div>
+            <button class="challengeBtn" data-challenge="meatfree">Join — 20 pts</button>
+          </div>
+          <div class="challenge">
+            <b>Car-free weekend</b>
+            <div class="muted">Avoid car_km activity on Saturday & Sunday</div>
+            <button class="challengeBtn" data-challenge="carfree">Join — 50 pts</button>
+          </div>
+        </div>
+      </section>
 
-<h3>Challenges & Rewards</h3>
-<div class="small">Complete challenges to earn points and badges.</div>
-<div class="challenges">
-<div class="challenge">
-<b>Meat-free day</b>
-<div class="muted">Do not log any 'meat_meal' for 1 day</div>
-<button class="challengeBtn" data-challenge="meatfree">Join — 20 pts</button>
-</div>
+      <aside class="card">
+        <h3>Profile & Settings</h3>
+        <label>Name</label>
+        <input id="name" placeholder="Your name" />
+
+        <label>Household size</label>
+        <input id="household" type="number" min="1" value="1" />
+
+        <label>Unit preferences</label>
+        <select id="units">
+          <option value="metric">Metric (km, kWh, kg)</option>
+          <option value="imperial">Imperial (miles, kWh, lbs)</option>
+        </select>
+
+        <div class="actions">
+          <button id="saveProfile">Save</button>
+          <button id="clearData" class="secondary">Reset</button>
+        </div>
+
+        <h3>Eco Spot Finder</h3>
+        <input id="spotQuery" placeholder="park, market, recycling" />
+        <button id="findSpots" class="secondary">Find</button>
+        <div class="list" id="spots"></div>
+
+        <h3>Community</h3>
+        <textarea id="postText" rows="3" placeholder="Share a tip or event"></textarea>
+
+        <div class="actions">
+          <button id="addPost">Post</button>
+          <button id="clearPosts" class="secondary">Clear</button>
+        </div>
+
+        <div class="list" id="posts"></div>
+      </aside>
+    </div>
+
+    <footer class="small">Runs locally. Emission factors are estimates.</footer>
+  </div>
+
+  <!-- External JS -->
+  <script src="script.js"></script>
+</body>
 </html>
